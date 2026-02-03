@@ -3,6 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import NumberLine from '@/components/NumberLine';
 import ExamplesPanel from '@/components/ExamplesPanel';
 import AnalyticsPanel from '@/components/AnalyticsPanel';
+import QuizPanel from '@/components/QuizPanel';
 import Icon from '@/components/ui/icon';
 
 export type Operation = '+' | '-' | '×' | '÷';
@@ -19,6 +20,7 @@ export interface MathExample {
 const Index = () => {
   const [examples, setExamples] = useState<MathExample[]>([]);
   const [activeTab, setActiveTab] = useState('main');
+  const [quizScore, setQuizScore] = useState({ correct: 0, total: 0 });
 
   const addExample = (example: Omit<MathExample, 'id'>) => {
     const newExample: MathExample = {
@@ -59,7 +61,7 @@ const Index = () => {
 
       <div className="container mx-auto px-6 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 bg-card/50 backdrop-blur-sm">
+          <TabsList className="grid w-full max-w-3xl mx-auto grid-cols-3 bg-card/50 backdrop-blur-sm">
             <TabsTrigger 
               value="main" 
               className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple data-[state=active]:to-magenta data-[state=active]:text-white"
@@ -73,6 +75,13 @@ const Index = () => {
             >
               <Icon name="BookOpen" size={16} className="mr-2" />
               Примеры
+            </TabsTrigger>
+            <TabsTrigger 
+              value="quiz"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue data-[state=active]:to-purple data-[state=active]:text-white"
+            >
+              <Icon name="Brain" size={16} className="mr-2" />
+              Викторина
             </TabsTrigger>
           </TabsList>
 
@@ -90,6 +99,13 @@ const Index = () => {
               onAddExample={addExample}
               onRemoveExample={removeExample}
               onClearExamples={clearExamples}
+            />
+          </TabsContent>
+
+          <TabsContent value="quiz" className="animate-fade-in">
+            <QuizPanel 
+              score={quizScore}
+              onScoreUpdate={setQuizScore}
             />
           </TabsContent>
         </Tabs>

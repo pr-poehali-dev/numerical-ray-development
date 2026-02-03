@@ -77,6 +77,44 @@ const ExamplesPanel = ({ examples, onAddExample, onRemoveExample, onClearExample
     }
   };
 
+  const generateRandomExample = () => {
+    const operations: Operation[] = ['+', '-', '×', '÷'];
+    const randomOp = operations[Math.floor(Math.random() * operations.length)];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)].value;
+    
+    let n1, n2;
+    
+    if (randomOp === '×') {
+      n1 = Math.floor(Math.random() * 50) + 1;
+      n2 = Math.floor(Math.random() * 50) + 1;
+    } else if (randomOp === '÷') {
+      n2 = Math.floor(Math.random() * 50) + 1;
+      n1 = n2 * (Math.floor(Math.random() * 50) + 1);
+    } else if (randomOp === '-') {
+      n1 = Math.floor(Math.random() * 500) + 100;
+      n2 = Math.floor(Math.random() * n1);
+    } else {
+      n1 = Math.floor(Math.random() * 500) + 10;
+      n2 = Math.floor(Math.random() * 500) + 10;
+    }
+    
+    const result = calculateResult(n1, n2, randomOp);
+    
+    onAddExample({
+      num1: n1,
+      num2: n2,
+      operation: randomOp,
+      color: randomColor,
+      result
+    });
+  };
+
+  const generateMultipleExamples = (count: number) => {
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => generateRandomExample(), i * 100);
+    }
+  };
+
   return (
     <div className="space-y-6">
       <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
