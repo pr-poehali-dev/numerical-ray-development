@@ -198,6 +198,33 @@ const ExamplesPanel = ({ examples, onAddExample, onRemoveExample, onClearExample
             </Button>
           </div>
         </div>
+
+        <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
+          <Button
+            variant="outline"
+            onClick={() => generateRandomExample()}
+            className="bg-gradient-to-r from-purple/10 to-magenta/10 hover:from-purple/20 hover:to-magenta/20 border-purple/30"
+          >
+            <Icon name="Sparkles" size={16} className="mr-2" />
+            Случайный пример
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => generateMultipleExamples(3)}
+            className="bg-gradient-to-r from-orange/10 to-magenta/10 hover:from-orange/20 hover:to-magenta/20 border-orange/30"
+          >
+            <Icon name="Zap" size={16} className="mr-2" />
+            3 примера
+          </Button>
+          <Button
+            variant="outline"
+            onClick={() => generateMultipleExamples(5)}
+            className="bg-gradient-to-r from-blue/10 to-purple/10 hover:from-blue/20 hover:to-purple/20 border-blue/30"
+          >
+            <Icon name="Flame" size={16} className="mr-2" />
+            5 примеров
+          </Button>
+        </div>
       </Card>
 
       <Card className="p-6 bg-card/50 backdrop-blur-sm border-border">
